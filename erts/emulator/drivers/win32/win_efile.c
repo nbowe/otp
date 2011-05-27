@@ -1582,6 +1582,7 @@ efile_fadvise(Efile_error* errInfo, int fd, Sint64 offset,
 }
 
 int
+
 efile_fallocate(Efile_error* errInfo, int fd, Sint64 newFileLength)
 {
     /* No file preallocation method available in Windows. */
@@ -1589,4 +1590,22 @@ efile_fallocate(Efile_error* errInfo, int fd, Sint64 newFileLength)
     SetLastError(ERROR_NOT_SUPPORTED);
 
     return check_error(-1, errInfo);
+}
+efile_sendfile(Efile_error* errInfo, int in_fd, int out_fd,
+	       off_t *offset, size_t *count)
+{
+    int res = efile_seek(errInfo, in_fd, *offset, EFILE_SEEK_SET, NULL);
+    if (res) {
+	/* TODO: could in_fd be shared and require protecting/locking
+	   efile_seek/SetFilePointerEx? */
+	if (TransmitFile((SOCKET) out_fd, (HANDLE) in_fd, *count,
+			 0, NULL, NULL, 0)) {
+	    return check_error(0, errInfo);
+	} else {
+	    /* TODO: correct error handling? */
+	    return set_error(errInfo);
+	}
+    } else {
+	return res;
+    }
 }
