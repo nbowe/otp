@@ -562,43 +562,47 @@ Crc = lists:foldl(fun(Bin,Crc0) ->
       </desc>
     </func>
     <func>
-      <name>zip(Binary)  -> Compressed</name>
-      <fsummary>Compress a binary without the zlib headers</fsummary>
+      <name>zip(Data)  -> Compressed</name>
+      <fsummary>Compress data without the zlib headers</fsummary>
       <type>
-        <v>Binary = Compressed = binary()</v>
+        <v>Data = iodata()</v>
+        <v>Compressed = binary()</v>
       </type>
       <desc>
-        <p>Compress a binary (without zlib headers and checksum).</p>
+        <p>Compress data (without zlib headers and checksum).</p>
       </desc>
     </func>
     <func>
-      <name>unzip(Binary)  -> Decompressed</name>
-      <fsummary>Uncompress a binary without the zlib headers</fsummary>
+      <name>unzip(Data)  -> Decompressed</name>
+      <fsummary>Uncompress data without the zlib headers</fsummary>
       <type>
-        <v>Binary = Decompressed = binary()</v>
+        <v>Data = iodata()</v>
+        <v>Decompressed = binary()</v>
       </type>
       <desc>
-        <p>Uncompress a binary (without zlib headers and checksum).</p>
+        <p>Uncompress data (without zlib headers and checksum).</p>
       </desc>
     </func>
     <func>
       <name>gzip(Data)  -> Compressed</name>
-      <fsummary>Compress a binary with gz header</fsummary>
+      <fsummary>Compress data with gz header</fsummary>
       <type>
-        <v>Binary = Compressed = binary()</v>
+        <v>Data = iodata()</v>
+        <v>Compressed = binary()</v>
       </type>
       <desc>
-        <p>Compress a binary (with gz headers and checksum).</p>
+        <p>Compress data (with gz headers and checksum).</p>
       </desc>
     </func>
     <func>
-      <name>gunzip(Bin) -> Decompressed</name>
-      <fsummary>Uncompress a binary with gz header</fsummary>
+      <name>gunzip(Data) -> Decompressed</name>
+      <fsummary>Uncompress data with gz header</fsummary>
       <type>
-        <v>Binary = Decompressed = binary()</v>
+        <v>Data = iodata()</v>
+        <v>Decompressed = binary()</v>
       </type>
       <desc>
-        <p>Uncompress a binary (with gz headers and checksum).</p>
+        <p>Uncompress data (with gz headers and checksum).</p>
       </desc>
     </func>
   </funcs>

@@ -303,20 +303,20 @@ uncompress(Binary) when is_binary(Binary) -> erlang:error(data_error);
 uncompress(_) -> erlang:error(badarg).
 
 %% unzip/zip zlib without header (zip members)
--spec zip(binary()) -> binary().
-zip(Binary) ->
+-spec zip(iodata()) -> binary().
+zip(Data) when is_binary(Data); is_list(Data) ->
     Z = open(),
     deflateInit(Z, default, deflated, -?MAX_WBITS, 8, default),
-    Bs = deflate(Z, Binary, finish),
+    Bs = deflate(Z, Data, finish),
     deflateEnd(Z),
     close(Z),
     list_to_binary(Bs).
 
--spec unzip(binary()) -> binary().
-unzip(Binary) ->
+-spec unzip(iodata()) -> binary().
+unzip(Data) when is_binary(Data); is_list(Data) ->
     Z = open(),
     inflateInit(Z, -?MAX_WBITS),
-    Bs = inflate(Z, Binary),
+    Bs = inflate(Z, Data),
     inflateEnd(Z),
     close(Z),
     list_to_binary(Bs).
